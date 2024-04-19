@@ -1,0 +1,2 @@
+ALTER TABLE `rsvp`.`rsvp` 
+CHANGE COLUMN `phone2` `phone` VARCHAR(60) NULL DEFAULT NULL ;
