@@ -22,14 +22,22 @@ public class Day26Application implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		for(Document doc : repo.findShowsByName("a")){
+		System.out.println("\n\n\n==================");
+		for(Document doc : repo.findShowsByName("and")){
 			String name = doc.getString("name");
 			List <String> genres = doc.getList("genres", String.class);
 			// System.out.printf("name: %s, genres: %s\n", name, genres.toString());
 
+			System.out.printf("name: %s, genres: %s\n", name, genres);
 			System.out.printf(">>>docs: %s \n" , doc.toString());
 			
 		}
+
+		System.out.printf("Numebr of english shows: %d\n"
+				, repo.countShowsByLanguage("english"));
+
+		System.out.printf("Type of shows with an average rating of gte 7: %s\n"
+				, repo.getTypesByRating(7f));
 
 		System.exit(0);
 	}
