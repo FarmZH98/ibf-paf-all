@@ -18,19 +18,19 @@ public class OrdersRepo implements OrdersQueries{
 
     public int Order(Order order) {
         int insertResult = 0;
-        insertResult = template.update(INSERT_ORDER, order.getName(), order.getEmail(), order.getDeliveryDate(), order.isRush(), order.getComments());
-        final SqlRowSet rs = template.queryForRowSet(GET_FORGEIGN_KEY);
+        insertResult = template.update(INSERT_ORDER, order.getId(), order.getName(), order.getEmail(), order.getDeliveryDate(), order.isRush(), order.getComments());
+        // final SqlRowSet rs = template.queryForRowSet(GET_FORGEIGN_KEY);
 
-        int foreignKey = -1;
+        // int foreignKey = -1;
 
-        while(rs.next()) {
-            foreignKey = rs.getInt("fk_order_id");
-        }
+        // while(rs.next()) {
+        //     foreignKey = rs.getInt("fk_order_id");
+        // }
 
         List<Cart> cartList = order.getCart();
 
         for(int i=0; i<cartList.size(); ++i) {
-            insertResult = template.update(INSERT_CART, cartList.get(i).getItem(), cartList.get(i).getQuantity());
+            insertResult = template.update(INSERT_CART, cartList.get(i).getItem(), cartList.get(i).getQuantity(), order.getId());
         }
         
 

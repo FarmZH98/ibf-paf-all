@@ -44,6 +44,7 @@ public class Day24Application implements CommandLineRunner {
 		order.setEmail("Jonny@email.com");
 		order.setRush(false);
 		order.setDeliveryDate(new Date(0));
+		//order.setId();
 
 		service.order(order);
 	}

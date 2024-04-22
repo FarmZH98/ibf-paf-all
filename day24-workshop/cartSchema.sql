@@ -6,7 +6,7 @@ use orders;
 
 -- main table
 create table order_info (
-    id INT NOT NULL AUTO_INCREMENT,
+    id char(8) not null,
    name varchar(32) not null,
    email varchar(128) not null,
    delivery_date date null,
@@ -21,7 +21,7 @@ create table order_product_info (
     id int not null AUTO_INCREMENT,
     item varchar(32) not null,
     quantity int not null,
-    order_id int,
+    order_id char(8) not null,
 
     constraint order_product_id primary key(id),
 
