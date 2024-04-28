@@ -15,7 +15,7 @@ public class OrderService {
 
     // Rollback if it is an unchecked exception
    // Will not rollback if its a checked exception
-   @Transactional
+   @Transactional(rollbackFor = OrderException.class)
     public void order(Order order) throws OrderException {
 
         int result = repo.Order(order);
