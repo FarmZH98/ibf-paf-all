@@ -66,6 +66,37 @@ public class GamesController {
         return new ResponseEntity<Game>(game, HttpStatus.OK);
     }
 
+    /*
+    {
+        _id: <game id>,
+        name: <board game name>,
+        rating: <the highest or lowest rating>,
+        user: <the user who gave that rating>,
+        comment: <the associated comment>,
+        review_id: <the review id>
+    }
+     */
+    @GetMapping("/games/highest")
+    public ResponseEntity<Game> getHighestRatedGame() {
+    
+        return null;
+    }
+
+    /*
+    {
+        rating: “highest” (or “lowest”),
+        games: [
+        <each element is the above document>,
+        ]
+        timestamp: <result timestamp>
+    }
+     */
+    @GetMapping("/games/lowest")
+    public ResponseEntity<Game> getLowestRatedGame() {
+    
+        return null;
+    }
+
     @PutMapping("/review/{reviewId}")
     public ResponseEntity<Review> postReview(
         @PathVariable("reviewId") String reviewId,

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
+import sg.edu.nus.iss.Workshop27.exception.GameIdNotFoundException;
 import sg.edu.nus.iss.Workshop27.model.Review;
 import sg.edu.nus.iss.Workshop27.repo.ReviewRepo;
 
@@ -40,6 +41,12 @@ public class ReviewService {
     
     public List<Review> getReviewsByGameId(int gameId) {
         
-        return reviewRepo.getReviewsByGameId(gameId);
+        List<Review> reviews = reviewRepo.getReviewsByGameId(gameId);
+
+        if(reviews.size() == 0) {
+            throw new GameIdNotFoundException("No reviews found for this game ID");
+        }
+
+        return reviews;
     }
 }

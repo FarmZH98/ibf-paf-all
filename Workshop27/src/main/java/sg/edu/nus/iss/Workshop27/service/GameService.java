@@ -7,6 +7,7 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.nus.iss.Workshop27.exception.GameIdNotFoundException;
 import sg.edu.nus.iss.Workshop27.model.Game;
 import sg.edu.nus.iss.Workshop27.model.GameAndReview;
 import sg.edu.nus.iss.Workshop27.model.GameShort;
@@ -21,11 +22,15 @@ public class GameService {
     @Autowired
     private ReviewService reviewService;
 
-    public List<GameShort> getGames(int limit, int offset) {
+    public List<GameShort> getGames(int limit, int offset) throws GameIdNotFoundException {
         List<GameShort> resultsList = new LinkedList<>();
         for(Document doc: gamesRepo.getGames(limit, offset)) {
             GameShort gameDTO = new GameShort(doc.getInteger("gid"), doc.getString("name"));
             resultsList.add(gameDTO);
+        }
+
+        if(resultsList.size() == 0) {
+            throw new GameIdNotFoundException("No games found with this game ID.");
         }
         
         return resultsList;
@@ -45,19 +50,20 @@ public class GameService {
         return gamesRepo.getGamesCount();
     }
 
-    public Game getGameById(int gameId) {
+    public Game getGameById(int gameId) throws GameIdNotFoundException {
         Document doc = gamesRepo.getAverageRatingFromComments(gameId);
         Game game = gamesRepo.getGameById(gameId);
         game.setAverageRating(doc.getDouble("average_rating"));
         return game;
     }
 
-    public GameAndReview getGameReviewByGameId(int gameId) {
+    public GameAndReview getGameReviewByGameId(int gameId) throws GameIdNotFoundException {
         GameAndReview gameAndReview = new GameAndReview();
         gameAndReview.setGame(getGameById(gameId));
         gameAndReview.setReviews(reviewService.getReviewsByGameId(gameId));
+        GameAndReview gameAndReview2 = gamesRepo.getGamesReviewByGameId(gameId);
 
-        return gameAndReview;
+        return gameAndReview2;
     }
 
 }
