@@ -45,7 +45,7 @@ public class GameController {
 
         mav.setViewName("success");
         newReview.setPosted(new Date());
-        reviewService.saveReview(newReview);
+        reviewService.saveNewReview(newReview);
         mav.addObject("savedReview", newReview);
         
         return mav;

@@ -34,6 +34,10 @@ public class ReviewService {
         reviewRepo.addReview(existingReview);
     }
 
+    public void saveNewReview(@Valid Review newReview) {
+        reviewRepo.addReview(newReview);
+    }
+
     public Review getReview(String reviewId) {
 
         return reviewRepo.getReview(reviewId);
